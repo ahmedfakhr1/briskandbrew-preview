@@ -19,11 +19,14 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preload" href="fonts/newsreader-b76914.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/nunito-798ec6.woff2" as="font" type="font/woff2" crossorigin>
-<style>html.fl body{opacity:0}body{transition:opacity .25s ease}</style>
-<script>(function(){var r=document.documentElement,fin=false;r.classList.add("js","fl");function done(){if(fin)return;fin=true;r.classList.remove("fl")}setTimeout(done,1200);addEventListener("DOMContentLoaded",function(){try{Promise.all([document.fonts.load("600 1em Newsreader"),document.fonts.load("500 1em Newsreader"),document.fonts.load("400 1em Nunito"),document.fonts.load("800 1em Nunito")]).then(done,done)}catch(e){done()}});setTimeout(function(){if(r.hasAttribute("data-ready"))return;var a=document.querySelectorAll(".rv");for(var i=0;i<a.length;i++)a[i].classList.add("in")},3500)})();</script>
-<link rel="stylesheet" href="fonts.css?v=1">
-<link rel="stylesheet" href="site.css?v=1">
-<script src="site.js?v=1" defer></script>
+<link rel="preload" as="image" href="img/table-1280.webp" imagesrcset="img/table-800.webp 800w, img/table-1280.webp 1280w" imagesizes="(min-width:900px) 58vw, 100vw" fetchpriority="high">
+<link rel="preload" as="image" href="img/logo-full-white.png" media="(min-width:900px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/logo-stack-white.png" media="(max-width:899px)" fetchpriority="high">
+<style>html.fl{background:#D1B699}html.fl body{opacity:0}body{transition:opacity .4s ease}@media(prefers-reduced-motion:reduce){body{transition:none}}</style>
+<script>(function(){var r=document.documentElement,fin=false;r.classList.add("js","fl");function done(){if(fin)return;fin=true;r.classList.remove("fl")}setTimeout(done,3000);addEventListener("DOMContentLoaded",function(){var jobs=[];try{["600 1em Newsreader","500 1em Newsreader","400 1em Nunito","800 1em Nunito"].forEach(function(f){jobs.push(document.fonts.load(f))});jobs.push(document.fonts.ready)}catch(e){}var im=document.querySelectorAll("img[data-hold]");for(var i=0;i<im.length;i++){(function(m){jobs.push(m.decode?m.decode().catch(function(){}):new Promise(function(res){if(m.complete)res();else m.onload=m.onerror=res}))})(im[i])}Promise.all(jobs).then(done,done)});setTimeout(function(){if(r.hasAttribute("data-ready"))return;var a=document.querySelectorAll(".rv");for(var i=0;i<a.length;i++)a[i].classList.add("in")},3500)})();</script>
+<link rel="stylesheet" href="fonts.css?v=2">
+<link rel="stylesheet" href="site.css?v=2">
+<script src="site.js?v=2" defer></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Restaurant", "name": "Brisk & Brew", "description": "Cairo's casual fine dining spot. Breakfast from 9 AM, grill, pasta, desserts and coffee, at three branches in Madinaty and New Cairo.", "url": "https://ahmedfakhr1.github.io/briskandbrew-preview/", "image": "https://ahmedfakhr1.github.io/briskandbrew-preview/img/og.jpg", "logo": "https://ahmedfakhr1.github.io/briskandbrew-preview/img/icon-192.png", "hasMenu": "https://ahmedfakhr1.github.io/briskandbrew-preview/menu.html", "acceptsReservations": false, "sameAs": ["https://www.instagram.com/briskandbrew.eg/", "https://www.facebook.com/Briskandbrew", "https://www.tiktok.com/@briskandbrew"], "department": [{"@type": "Restaurant", "name": "Brisk & Brew, Open Air Mall, Madinaty", "telephone": "+201103351699", "address": {"@type": "PostalAddress", "streetAddress": "Open Air Mall, Second New Cairo", "addressLocality": "New Cairo", "addressCountry": "EG"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "09:00", "closes": "00:00"}], "hasMap": "https://www.google.com/maps/search/?api=1&query=Brisk+%26+Brew+Open+Air+Mall+Madinaty"}, {"@type": "Restaurant", "name": "Brisk & Brew, Leven Square, New Cairo", "telephone": "+201500103312", "address": {"@type": "PostalAddress", "streetAddress": "Leven Square mall, New Cairo", "addressLocality": "New Cairo", "addressCountry": "EG"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "09:00", "closes": "23:30"}], "hasMap": "https://www.google.com/maps/search/?api=1&query=Brisk+%26+Brew+Leven+Square+New+Cairo"}, {"@type": "Restaurant", "name": "Brisk & Brew, The Strip Mall, Madinaty", "telephone": "+201500103358", "address": {"@type": "PostalAddress", "streetAddress": "Strip Mall, next to CIB Bank, Second New Cairo", "addressLocality": "New Cairo", "addressCountry": "EG"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Saturday", "Sunday"], "opens": "09:00", "closes": "23:15"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday", "Friday"], "opens": "09:00", "closes": "23:45"}], "hasMap": "https://www.google.com/maps/search/?api=1&query=Brisk+%26+Brew+The+Strip+Mall+Madinaty"}]}</script>
 </head>
 <body>
@@ -52,13 +55,13 @@
   <div class="hero-copy kraft">
     <picture>
       <source media="(min-width:900px)" srcset="img/logo-full-white.png" width="1000" height="699">
-      <img class="hero-logo" src="img/logo-stack-white.png" width="640" height="602" alt="Brisk &amp; Brew, your all day favorite spot">
+      <img class="hero-logo" src="img/logo-stack-white.png" width="640" height="602" alt="Brisk &amp; Brew, your all day favorite spot" loading="eager" decoding="async" fetchpriority="high" data-hold>
     </picture>
     <h1>Cairo&rsquo;s casual fine dining spot.</h1>
     <a class="btn btn-brown" href="menu.html">See the menu</a>
   </div>
   <div class="hero-photo">
-    <img src="img/table-1280.webp" srcset="img/table-800.webp 800w, img/table-1280.webp 1280w" sizes="(min-width:900px) 58vw, 100vw" width="1280" height="1598" fetchpriority="high" decoding="async" alt="A sunlit terrace table laid with a steak skillet, penne, chicken strips, bread-bowl soups, a salad and mojitos">
+    <img src="img/table-1280.webp" srcset="img/table-800.webp 800w, img/table-1280.webp 1280w" sizes="(min-width:900px) 58vw, 100vw" width="1280" height="1598" loading="eager" fetchpriority="high" decoding="async" data-hold alt="A sunlit terrace table laid with a steak skillet, penne, chicken strips, bread-bowl soups, a salad and mojitos">
   </div>
 </section>
 
@@ -186,7 +189,7 @@
     <h2 class="t-display" id="h-branches">Three branches</h2>
     <div class="bgrid">
       <figure class="bphoto"><img src="img/storefront.webp" width="464" height="832" alt="A storefront with a black pergola facade and the Brisk &amp; Brew sign above the entrance" loading="lazy" decoding="async"></figure>
-      <article class="bcard kraft rv">
+      <article class="bcard kraft">
         <h3>Open Air Mall, Madinaty</h3>
         <address>Open Air Mall, Second New Cairo</address>
         <p class="hrs">9 AM to 12 AM, every day</p>
@@ -195,7 +198,7 @@
           <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Brisk+%26+Brew+Open+Air+Mall+Madinaty" target="_blank" rel="noopener">Directions</a>
         </div>
       </article>
-      <article class="bcard kraft rv">
+      <article class="bcard kraft">
         <h3>Leven Square, New Cairo</h3>
         <address>Leven Square mall, New Cairo</address>
         <p class="hrs">9 AM to 11:30 PM, every day</p>
@@ -204,7 +207,7 @@
           <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Brisk+%26+Brew+Leven+Square+New+Cairo" target="_blank" rel="noopener">Directions</a>
         </div>
       </article>
-      <article class="bcard kraft rv">
+      <article class="bcard kraft">
         <span class="new">Newest branch</span><h3>The Strip Mall, Madinaty</h3>
         <address>Strip Mall, next to CIB Bank, Second New Cairo</address>
         <p class="hrs">9 AM to 11:15 PM, Thursday and Friday to 11:45 PM</p>

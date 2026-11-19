@@ -34,7 +34,7 @@ button{cursor:pointer}
 @media(min-width:900px){body{font-size:18px}:root{--hh:76px}}
 
 /* kraft paper: flat card with the grain of their menu cover */
-.kraft{background:var(--kraft) url(img/kraft.webp?v=1) 0 0/320px 320px;color:var(--brown)}
+.kraft{background:var(--kraft) url(img/kraft.webp?v=2) 0 0/320px 320px;color:var(--brown)}
 
 /* type */
 .serif{font-family:var(--serif)}
@@ -125,22 +125,24 @@ dialog::backdrop{background:rgba(27,32,35,.62)}
 .sheet .x{position:absolute;right:8px;top:8px}
 @media(min-width:700px){.sheet{margin:auto;border-radius:6px;max-width:460px}}
 
-/* hero */
-.hero{display:grid;grid-template-columns:1fr;background:var(--kraft)}
-.hero-photo{position:relative;height:54svh;min-height:340px;max-height:520px;order:-1;overflow:hidden}
-.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 46%}
-.hero-copy{padding:34px var(--gut) 46px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px}
-.hero-logo{width:176px}
-.hero h1{font:500 clamp(25px,6.8vw,30px)/1.2 var(--serif);text-wrap:balance;font-optical-sizing:auto}
-.hero .btn{width:100%;max-width:340px}
+/* hero: always shown whole, one viewport tall */
+:root{--bar:0px}
+@media(max-width:899px){:root{--bar:calc(60px + env(safe-area-inset-bottom,0px))}}
+.hero{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;background:var(--kraft);height:calc(100vh - var(--bar));height:calc(100svh - var(--bar));min-height:0;overflow:hidden}
+.hero-photo{position:relative;min-height:0;order:-1;overflow:hidden;background:var(--kraft)}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 46%}
+.hero-copy{padding:clamp(14px,3.2svh,34px) var(--gut) clamp(16px,3.6svh,40px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(10px,2.2svh,22px)}
+.hero-logo{width:clamp(92px,21svh,176px);height:auto}
+.hero h1{font:500 clamp(19px,5.8vw,30px)/1.2 var(--serif);text-wrap:balance;font-optical-sizing:auto}
+.hero .btn{width:100%;max-width:340px;min-height:clamp(46px,7svh,52px)}
 @media(min-width:900px){
-  .hero{grid-template-columns:42% 58%;min-height:clamp(640px,100svh,980px)}
-  .hero-photo{order:0;height:auto;min-height:0;max-height:none}
+  .hero{grid-template-columns:42% 58%;grid-template-rows:minmax(0,1fr);height:100vh;height:100svh;min-height:480px}
+  .hero-photo{order:0}
   .hero-photo img{object-position:56% 40%}
-  .hero-copy{order:-1;align-items:center;text-align:center;justify-content:center;padding:112px clamp(32px,4.5vw,80px) 72px;gap:34px}
-  .hero-logo{width:min(100%,480px)}
-  .hero h1{font-size:clamp(28px,2.5vw,38px);max-width:16ch}
-  .hero .btn{width:auto;max-width:none}
+  .hero-copy{order:-1;align-items:center;text-align:center;justify-content:center;padding:clamp(84px,11svh,112px) clamp(28px,4.5vw,80px) clamp(36px,6svh,64px);gap:clamp(16px,3.2svh,34px)}
+  .hero-logo{width:min(100%,clamp(200px,42svh,480px))}
+  .hero h1{font-size:clamp(24px,min(2.5vw,4.6svh),38px);max-width:16ch}
+  .hero .btn{width:auto;max-width:none;min-height:52px}
 }
 
 /* intro */
@@ -188,7 +190,7 @@ dialog::backdrop{background:rgba(27,32,35,.62)}
 .place h2{font-size:clamp(38px,5vw,68px);max-width:14ch;color:var(--cream)}
 .place p{margin-top:20px;color:#DCD3C5;font-size:clamp(18px,1.5vw,20px);max-width:48ch}
 .place-photos{margin-top:clamp(36px,5vw,64px);display:grid;gap:12px}
-.place-photos figure{overflow:hidden;border-radius:var(--r)}
+.place-photos figure{overflow:hidden;border-radius:var(--r);background:#2B3135}
 .place-photos img{width:100%;height:100%;object-fit:cover}
 .place-photos .wide{aspect-ratio:16/10}
 .place-photos .tall{aspect-ratio:4/5}
@@ -274,7 +276,7 @@ dialog::backdrop{background:rgba(27,32,35,.62)}
 /* order in */
 .order{padding:clamp(40px,5vw,72px) 0}
 .order-in{display:grid;grid-template-columns:auto 1fr;gap:20px 24px;align-items:center}
-.order figure{width:112px;aspect-ratio:4/5;overflow:hidden;border-radius:var(--r);grid-row:span 2}
+.order figure{width:112px;aspect-ratio:4/5;overflow:hidden;border-radius:var(--r);grid-row:span 2;background:var(--kraft)}
 .order figure img{width:100%;height:100%;object-fit:cover}
 .order h2{font-size:clamp(34px,4.4vw,56px)}
 .order p{margin-top:8px;font-size:18px}
@@ -316,12 +318,12 @@ dialog::backdrop{background:rgba(27,32,35,.62)}
 .bar .on-page{color:var(--orange)}
 @media(min-width:900px){.bar{display:none}}
 
-/* reveal: each card fades and rises once as it enters */
-.js .rv:not(.in){opacity:0;transform:translateY(26px)}
-.rv{transition:opacity .7s var(--ease),transform .7s var(--ease)}
+/* reveal: one gentle fade per whole section (opacity only), never on the hero */
+.js .rv:not(.in){opacity:0}
+.rv{transition:opacity .6s ease}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .js .rv:not(.in){opacity:1;transform:none}
+  .js .rv:not(.in){opacity:1}
   .rv,.btn,.logo,.logo img,.hdr{transition:none}
   .drawer[open]{animation:none}
 }

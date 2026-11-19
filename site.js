@@ -34,13 +34,13 @@
     $$('a', drawer).forEach(function (a) { a.addEventListener('click', function () { closeDlg(drawer); }); });
   }
 
-  /* each card fades and rises once as it enters */
+  /* one gentle fade per whole section, triggered early */
   var rv = $$('.rv');
   if (rv.length) {
     if ('IntersectionObserver' in window && !reduce) {
       var io = new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+      }, { threshold: 0.02, rootMargin: '0px 0px 15% 0px' });
       rv.forEach(function (e) { io.observe(e); });
     } else { rv.forEach(function (e) { e.classList.add('in'); }); }
   }
