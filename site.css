@@ -34,7 +34,7 @@ button{cursor:pointer}
 @media(min-width:900px){body{font-size:18px}:root{--hh:76px}}
 
 /* kraft paper: flat card with the grain of their menu cover */
-.kraft{background:var(--kraft) url(img/kraft.webp?v=2) 0 0/320px 320px;color:var(--brown)}
+.kraft{background:var(--kraft) url(img/kraft.webp?v=3) 0 0/320px 320px;color:var(--brown)}
 
 /* type */
 .serif{font-family:var(--serif)}
@@ -380,3 +380,14 @@ dialog::backdrop{background:rgba(27,32,35,.62)}
 
 .skip{position:fixed;left:12px;top:-80px;z-index:100;padding:12px 18px;border-radius:var(--r);background:var(--brown);color:var(--cream);font-weight:800;text-decoration:none}
 .skip:focus{top:12px}
+
+/* opening veil (first visit): their logo on the kraft ground and a hairline that fills while the first screen loads */
+.veil{display:none;position:fixed;inset:0;z-index:200;background:var(--kraft) url(img/kraft.webp?v=3) 0 0/320px 320px;flex-direction:column;align-items:center;justify-content:center;gap:28px;transition:opacity .8s ease}
+html.veiled .veil{display:flex}
+html.veiled,html.veiled body{overflow:hidden}
+html.veil-out .veil{opacity:0;pointer-events:none}
+.veil img{width:clamp(140px,14vw,190px);height:auto;opacity:0;transform:translateY(8px);animation:veil-in .8s ease forwards}
+@keyframes veil-in{to{opacity:1;transform:none}}
+.veil-bar{width:120px;height:2px;background:rgba(81,40,34,.22);overflow:hidden}
+.veil-bar i{display:block;height:100%;background:var(--orange);transform:scaleX(0);transform-origin:left center;transition:transform .4s ease}
+@media(prefers-reduced-motion:reduce){.veil,.veil-bar i{transition:none}.veil img{animation:none;opacity:1;transform:none}}
