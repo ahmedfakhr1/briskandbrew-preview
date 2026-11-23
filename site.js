@@ -83,7 +83,7 @@
     spy();
   }
 
-  /* plan a table */
+  /* book a table */
   var form = $('#planForm');
   if (form) {
     var BR = {
@@ -136,7 +136,7 @@
       if (!ok) { first.focus(); return; }
       var b = BR[selBranch.value], dt = parseDate();
       var occ = (form.querySelector('input[name="occasion"]:checked') || {}).value;
-      var lines = ['Hello Brisk & Brew ' + b.name + ', I would like to plan a table.',
+      var lines = ['Hello Brisk & Brew ' + b.name + ', I would like to book a table.',
         'Name: ' + f.name.value.trim(),
         'Date: ' + dt.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }),
         'Time: ' + f.time.value,

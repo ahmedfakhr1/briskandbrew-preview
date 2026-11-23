@@ -21,9 +21,9 @@
 <link rel="preload" href="fonts/nunito-798ec6.woff2" as="font" type="font/woff2" crossorigin>
 <style>html.fl{background:#2a1512}html.fl body{opacity:0}body{transition:opacity .4s ease}@media(prefers-reduced-motion:reduce){body{transition:none}}</style>
 <script>(function(){var r=document.documentElement,t0=Date.now(),fin=false,first=false,rm=false;try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}try{first=!localStorage.getItem("briskandbrew-intro");if(first)localStorage.setItem("briskandbrew-intro","1")}catch(e){}r.classList.add("js",first?"veiled":"fl");function lift(){if(fin)return;fin=true;if(first){r.classList.add("veil-out");setTimeout(function(){r.classList.remove("veiled","veil-out")},rm?0:800)}else{r.classList.remove("fl")}}setTimeout(lift,first?2500:3000);if(first){addEventListener("click",lift);addEventListener("keydown",lift)}addEventListener("DOMContentLoaded",function(){var jobs=[],bar=document.querySelector(".veil-bar i"),n=0,total=1;function tick(){n++;if(bar)bar.style.transform="scaleX("+Math.min(1,n/total)+")"}function add(p){jobs.push(p.then(tick,tick))}try{["400 1em Newsreader","500 1em Newsreader","400 1em Nunito","700 1em Nunito"].forEach(function(f){add(document.fonts.load(f))});add(document.fonts.ready)}catch(e){}var im=document.querySelectorAll("img[data-hold]");for(var i=0;i<im.length;i++){(function(m){add(m.decode?m.decode().catch(function(){}):new Promise(function(res){if(m.complete)res();else m.onload=m.onerror=res}))})(im[i])}total=jobs.length||1;Promise.all(jobs).then(function(){if(!first){lift();return}setTimeout(lift,rm?0:Math.max(260,1200-(Date.now()-t0)))},lift)});setTimeout(function(){if(r.hasAttribute("data-ready"))return;var a=document.querySelectorAll(".rv");for(var i=0;i<a.length;i++)a[i].classList.add("in")},3500)})();</script>
-<link rel="stylesheet" href="fonts.css?v=4">
-<link rel="stylesheet" href="site.css?v=4">
-<script src="site.js?v=4" defer></script>
+<link rel="stylesheet" href="fonts.css?v=5">
+<link rel="stylesheet" href="site.css?v=5">
+<script src="site.js?v=5" defer></script>
 </head>
 <body class="page-menu">
 <div class="veil" aria-hidden="true"><img src="img/logo-stack-white.png" alt="" width="640" height="602" decoding="async"><div class="veil-bar"><i></i></div></div>
@@ -35,7 +35,7 @@
       <img class="mk mk-b" src="img/logo-mark-brown.png" alt="" width="300" height="303">
     </a>
     <div class="hdr-r">
-      <a class="hdr-plan" href="index.html#plan" data-sheet="plan">Plan a table</a>
+      <a class="hdr-plan" href="index.html#plan" data-sheet="plan">Book a table</a>
       <button type="button" class="burger" aria-label="Open the menu" aria-expanded="false" aria-controls="navDlg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 8.5h16M4 15.5h16"/></svg></button>
     </div>
   </div>
@@ -78,7 +78,7 @@
     <img class="ovl-mark" src="img/logo-mark-white.png" alt="" width="300" height="303" loading="lazy" decoding="async">
     <nav aria-label="Main">
       <a href="menu.html">Menu</a>
-      <a href="index.html#plan" data-sheet="plan">Plan a table</a>
+      <a href="index.html#plan" data-sheet="plan">Book a table</a>
       <a href="index.html#branches">Branches</a>
       <button type="button" data-sheet="call">Call a branch</button>
     </nav>
@@ -90,7 +90,7 @@
   <div class="ovl-in">
     <button type="button" class="x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <div class="sheet-in">
-      <h2 id="planTitle">Plan a table</h2>
+      <h2 id="planTitle">Book a table</h2>
       <p class="sheet-line">Your request opens on WhatsApp, ready to send.</p>
       <form class="pform" id="planForm" novalidate>
         <div class="fld"><label for="f-branch">Branch</label><select id="f-branch" name="branch"><option value="open-air">Open Air Mall, Madinaty</option><option value="leven">Leven Square, New Cairo</option><option value="strip">The Strip Mall, Madinaty</option></select></div>
