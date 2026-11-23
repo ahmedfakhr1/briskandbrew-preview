@@ -6,59 +6,56 @@
   root.setAttribute('data-ready', '');
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* header: transparent over the hero, solid cream after scrolling */
-  var hdr = $('.hdr');
-  if (hdr && !hdr.hasAttribute('data-solid')) {
-    var onScroll = function () { hdr.classList.toggle('solid', window.scrollY > 40); };
+  /* header: clear over the hero, then a quiet solid bar once the hero logo has scrolled away */
+  var hdr = $('.hdr'), hero = $('.hero');
+  if (hdr) {
+    var onScroll = function () {
+      var at = hero ? hero.offsetHeight * 0.5 : 60;
+      hdr.classList.toggle('solid', window.scrollY > at);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
   }
 
   /* dialogs */
-  function openDlg(dlg) { if (!dlg) return; if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }
-  function closeDlg(dlg) { if (!dlg) return; if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  function openDlg(dlg) { if (!dlg) return; if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); }
+  function closeDlg(dlg) { if (!dlg) return; if (dlg.close) { if (dlg.open) dlg.close(); } else dlg.removeAttribute('open'); }
   $$('dialog').forEach(function (dlg) {
     dlg.addEventListener('click', function (e) { if (e.target === dlg) closeDlg(dlg); });
     $$('[data-close]', dlg).forEach(function (b) { b.addEventListener('click', function () { closeDlg(dlg); }); });
   });
+  var navDlg = $('#navDlg'), burger = $('.burger');
   $$('[data-ar]').forEach(function (b) {
-    b.addEventListener('click', function () { closeDlg($('#drawer')); openDlg($('#arDialog')); });
+    b.addEventListener('click', function () { closeDlg(navDlg); openDlg($('#arDialog')); });
   });
   $$('[data-sheet]').forEach(function (b) {
-    b.addEventListener('click', function () { openDlg($('#callSheet')); });
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      closeDlg(navDlg);
+      openDlg($(b.getAttribute('data-sheet') === 'plan' ? '#planSheet' : '#callSheet'));
+    });
   });
-  var burger = $('.burger'), drawer = $('#drawer');
-  if (burger && drawer) {
-    burger.addEventListener('click', function () { openDlg(drawer); burger.setAttribute('aria-expanded', 'true'); });
-    drawer.addEventListener('close', function () { burger.setAttribute('aria-expanded', 'false'); });
-    $$('a', drawer).forEach(function (a) { a.addEventListener('click', function () { closeDlg(drawer); }); });
+  if (burger && navDlg) {
+    burger.addEventListener('click', function () { openDlg(navDlg); burger.setAttribute('aria-expanded', 'true'); });
+    navDlg.addEventListener('close', function () { burger.setAttribute('aria-expanded', 'false'); });
+    $$('a:not([data-sheet])', navDlg).forEach(function (a) { a.addEventListener('click', function () { closeDlg(navDlg); }); });
   }
 
-  /* one gentle fade per whole section, triggered early */
+  /* reveal: one photo at a time (scale and fade), once; the first line just fades. Waits for the image to decode. */
   var rv = $$('.rv');
   if (rv.length) {
+    var show = function (el) {
+      var im = $('img', el);
+      var go = function () { el.classList.add('in'); };
+      if (im && im.decode) { im.decode().then(go, go); } else { go(); }
+    };
     if ('IntersectionObserver' in window && !reduce) {
       var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.02, rootMargin: '0px 0px 15% 0px' });
+        es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.04, rootMargin: '0px 0px 12% 0px' });
       rv.forEach(function (e) { io.observe(e); });
     } else { rv.forEach(function (e) { e.classList.add('in'); }); }
-  }
-
-  /* phone bottom bar: hides on scroll down, over the plan block and over the footer */
-  var bar = $('.bar');
-  if (bar) {
-    var lastY = window.scrollY, hideBy = {}, anyHide = function () { return Object.keys(hideBy).some(function (k) { return hideBy[k]; }); };
-    var down = false;
-    var apply = function () { bar.classList.toggle('hide', down || anyHide()); };
-    window.addEventListener('scroll', function () {
-      var y = window.scrollY, dy = y - lastY;
-      if (Math.abs(dy) > 6) { down = dy > 0 && y > 120; lastY = y; apply(); }
-    }, { passive: true });
-    ['#plan', '.footer'].forEach(function (sel) {
-      var el = $(sel); if (!el || !('IntersectionObserver' in window)) return;
-      new IntersectionObserver(function (es) { hideBy[sel] = es[0].isIntersecting; apply(); }, { threshold: 0.02 }).observe(el);
-    });
   }
 
   /* menu chips: scroll-spy */
@@ -76,7 +73,7 @@
       });
     };
     var spy = function () {
-      var line = (parseInt(getComputedStyle(root).getPropertyValue('--hh')) || 64) + (parseInt(getComputedStyle(root).getPropertyValue('--chips-h')) || 56) + 40;
+      var line = (parseInt(getComputedStyle(root).getPropertyValue('--hh')) || 60) + (parseInt(getComputedStyle(root).getPropertyValue('--chips-h')) || 56) + 40;
       var cur = null;
       groups.forEach(function (g) { if (g && g.getBoundingClientRect().top <= line) cur = g; });
       if (cur) setActive(cur.id); else links.forEach(function (a) { a.removeAttribute('aria-current'); });
@@ -153,6 +150,9 @@
     });
     syncBranch();
   }
+
+  /* index.html#plan from another page: the plan block is on the home page, so open the sheet there only when there is no block to land on */
+  if (location.hash === '#plan' && !$('section#plan')) { openDlg($('#planSheet')); }
 
   /* Ahmed's signature */
   (function () { var a = document.querySelector('a.sig'); if (!a) return; function play() { a.classList.remove('on'); void a.getBoundingClientRect(); a.classList.add('on') } a.addEventListener('mouseenter', function () { if (!a.classList.contains('on')) play() }); if (!matchMedia('(hover: none)').matches || !('IntersectionObserver' in window)) return; var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); setTimeout(play, 400) } }, { threshold: .9 }); io.observe(a) })();
